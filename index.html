@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#082b50"><meta name="description" content="Registro de trabajos y control de equipos DTH">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Viko-técnico</title>
+<style>
+:root{--navy:#082b50;--blue:#087bd5;--cyan:#16b8e8;--ink:#10253b;--muted:#65778a;--bg:#f1f5f9;--line:#dbe4ee;--green:#0d9b68;--red:#d74444}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--ink)}
+header{background:linear-gradient(135deg,#061d38,#0b4778);color:white;padding:17px;box-shadow:0 3px 14px #0a2d4b30}
+.brand{display:flex;align-items:center;gap:11px}.brand img{width:48px;height:48px}.brand h1{font-size:21px;margin:0;font-weight:850}.brand small{display:block;color:#b9eaff;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+main{max-width:760px;margin:auto;padding:14px 14px 40px}.total{background:linear-gradient(120deg,#0b4778,#087bd5);color:white;padding:18px;border-radius:17px;margin:2px 0 14px}.total .label{font-size:12px;color:#d6efff}.total strong{font-size:27px;display:block;margin-top:4px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:14px;box-shadow:0 2px 8px #0d2c4510}.stat span{display:block;color:var(--muted);font-size:11px}.stat b{display:block;font-size:18px;margin-top:5px}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:14px 0}.menu button{border:0;border-radius:13px;padding:15px 8px;min-height:78px;color:white;background:var(--blue);font-weight:800;font-size:14px}.menu button:nth-child(2){background:#15945e}.menu button:nth-child(3){background:#7046bd}.menu button:nth-child(4){background:#d88a12}.menu button:nth-child(5){background:#087e91}.menu button:nth-child(6){background:#52677d}
+h2{font-size:17px;margin:0 0 13px}.field{margin:11px 0}.field label{display:block;font-size:12px;font-weight:750;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #cbd7e3;border-radius:10px;padding:12px;font:inherit;font-size:14px;background:white;color:var(--ink)}.field textarea{min-height:65px}
+.typegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.type{border:1.5px solid var(--line);background:white;border-radius:12px;padding:11px;text-align:left;color:var(--ink)}.type.selected{border-color:var(--blue);background:#eaf5ff}.type b{display:block;font-size:13px}.type small{display:block;color:var(--blue);font-weight:800;margin-top:5px}
+.amount{background:#eaf5ff;border:1px solid #c8e5fb;border-radius:12px;padding:13px;display:flex;justify-content:space-between;align-items:center;margin:13px 0}.amount strong{font-size:20px;color:#075fa8}
+.btn{border:0;border-radius:11px;padding:13px 15px;background:var(--blue);color:white;font-weight:800;font-size:14px;width:100%;cursor:pointer}.btn.secondary{background:#e7eef5;color:var(--navy)}.btn.danger{background:#fff0f0;color:var(--red)}.btn.small{padding:8px;font-size:12px}
+.row{display:flex;gap:8px}.row>*{flex:1}.tabs{display:flex;gap:7px;margin:12px 0}.tab{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 8px;border-radius:10px;font-weight:700;flex:1}.tab.active{background:var(--navy);color:white}
+.job,.movement{padding:12px 0;border-bottom:1px solid var(--line)}.jobtop{display:flex;justify-content:space-between;gap:8px}.job b,.movement b{font-size:13px}.job small,.movement small{display:block;color:var(--muted);font-size:11px;margin-top:4px;line-height:1.5}.pill{font-size:10px;font-weight:800;border-radius:20px;padding:4px 8px;background:#e4f3ff;color:#0865a8;white-space:nowrap}.pill.service{background:#e5f8ef;color:#087a4d}.money{font-weight:850;color:var(--navy);font-size:14px;margin-top:7px}
+.hidden{display:none!important}.muted{color:var(--muted);font-size:12px}.empty{text-align:center;padding:22px 8px;color:var(--muted);font-size:13px}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sectionhead h2{margin:0}.foot{text-align:center;color:#8493a3;font-size:10px;margin:24px 0}
+@media(min-width:600px){main{padding-top:20px}.stats{grid-template-columns:repeat(4,1fr)}}
+</style></head>
+<body>
+<header><div class="brand">
+<svg width="52" height="52" viewBox="0 0 128 128" role="img" aria-label="Logo Viko-técnico: antena satelital" xmlns="http://www.w3.org/2000/svg">
+ <circle cx="64" cy="64" r="61" fill="#0b5b98" stroke="#8bdcff" stroke-width="3"/>
+ <path d="M20 52a54 54 0 0 1 87-22M27 64a42 42 0 0 1 66-18" fill="none" stroke="#4bd3ff" stroke-width="6" stroke-linecap="round"/>
+ <path d="M31 75Q52 91 78 65L59 42Q34 50 31 75Z" fill="#fff" stroke="#c9eaff" stroke-width="3"/>
+ <path d="M43 83L32 105M53 83L75 105" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+ <path d="M58 47L91 20" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+ <circle cx="94" cy="18" r="6" fill="#ffd34e"/>
+</svg>
+<div><h1>Viko-técnico</h1><small>Soporte Técnico DTH</small></div></div></header>
+<main>
+<section id="home">
+ <div class="total"><div class="label">TOTAL ACUMULADO</div><strong id="grandTotal">Gs. 0</strong><div class="label">Ganancias de trabajos registrados</div></div>
+ <div class="stats"><div class="stat"><span>Instalaciones nuevas</span><b id="newCount">0</b></div><div class="stat"><span>Reinstalaciones</span><b id="reCount">0</b></div><div class="stat"><span>Servicios técnicos</span><b id="serviceCount">0</b></div><div class="stat"><span>Ganado hoy</span><b id="todayTotal">Gs. 0</b></div></div>
+ <div class="menu">
+  <button data-page="job">📡<br>Registrar trabajo</button><button data-page="equipment">📦<br>Equipos entregados en base / devolución</button>
+  <button data-page="history">📋<br>Mis trabajos</button><button data-page="summary">📊<br>Resumen de ganancias</button>
+  <button data-page="moves">🔁<br>Historial de equipos</button><button data-page="settings">⚙️<br>Configuración y respaldo</button>
+ </div>
+</section>
+<section id="jobPage" class="panel hidden">
+ <div class="sectionhead"><h2 id="jobTitle">Registrar trabajo</h2><button class="btn secondary small" data-home>Volver</button></div>
+ <form id="jobForm"><input id="editId" type="hidden">
+  <div class="field"><label for="date">Fecha del trabajo</label><input id="date" type="date" required></div>
+  <div class="row"><div class="field"><label for="account">Número de cuenta</label><input id="account" inputmode="numeric" required></div><div class="field"><label for="order">Número de orden</label><input id="order" required></div></div>
+  <div class="field"><label>Tipo de trabajo</label><div class="typegrid">
+   <button type="button" class="type selected" data-type="instalacion"><b>📡 Instalación nueva</b><small>Gs. 133.000</small></button>
+   <button type="button" class="type" data-type="reinstalacion"><b>🔄 Reinstalación</b><small>Gs. 133.000</small></button>
+   <button type="button" class="type" data-type="servicio"><b>🔧 Servicio técnico</b><small>Gs. 56.000</small></button>
+  </div></div>
+  <div class="field"><label for="installed">Equipo instalado</label><input id="installed" placeholder="Antena, receptor, LNB..."></div>
+  <div class="field"><label for="removed">Equipo retirado</label><input id="removed" placeholder="Receptor, LNB, cable..."></div>
+  <div class="amount"><span>Monto del trabajo</span><strong id="amount">Gs. 133.000</strong></div>
+  <div class="field"><label for="notes">Observaciones (opcional)</label><textarea id="notes"></textarea></div>
+  <button class="btn" type="submit">Guardar trabajo</button>
+ </form>
+</section>
+<section id="equipmentPage" class="panel hidden">
+ <div class="sectionhead"><h2>Equipos entregados en base / devolución</h2><button class="btn secondary small" data-home>Volver</button></div>
+ <div class="tabs"><button class="tab active" data-move="entrega">📦 Entrega en base</button><button class="tab" data-move="devolucion">↩ Devolución</button></div>
+ <form id="moveForm"><div class="row"><div class="field"><label for="mDate">Fecha</label><input id="mDate" type="date" required></div><div class="field"><label for="mAccount">Número de cuenta</label><input id="mAccount" inputmode="numeric"></div></div>
+ <div class="field"><label for="mOrder">Número de orden</label><input id="mOrder"></div>
+ <div class="field"><label for="equipmentType">Equipo</label><select id="equipmentType"><option>Decodificador HD</option><option>Control remoto</option><option>Antena</option><option>LNB</option><option>Fuente de alimentación</option><option>Cable</option><option>Otro</option></select></div>
+ <div class="row"><div class="field"><label for="quantity">Cantidad</label><input id="quantity" type="number" min="1" value="1" required></div><div class="field"><label for="condition">Estado</label><select id="condition"><option>Bueno</option><option>Usado</option><option>Defectuoso</option></select></div></div>
+ <div class="field"><label for="mNotes">Observaciones</label><textarea id="mNotes" placeholder="Detalle opcional..."></textarea></div>
+ <button class="btn" type="submit" id="moveSave">Registrar entrega</button></form>
+ <div class="amount"><span>Saldo neto de movimientos</span><strong id="netMoves">0 equipos</strong></div>
+</section>
+<section id="historyPage" class="panel hidden"><div class="sectionhead"><h2>Mis trabajos</h2><button class="btn secondary small" data-home>Volver</button></div>
+ <div class="field"><label for="search">Buscar por cuenta, orden o fecha</label><input id="search" placeholder="Escribí para buscar..."></div><div id="jobList"></div>
+</section>
+<section id="summaryPage" class="panel hidden"><div class="sectionhead"><h2>Resumen de ganancias</h2><button class="btn secondary small" data-home>Volver</button></div>
+ <div class="field"><label for="period">Período</label><select id="period"><option value="today">Hoy</option><option value="week">Esta semana</option><option value="month" selected>Este mes</option><option value="all">Todo el tiempo</option></select></div>
+ <div class="total"><div class="label">TOTAL DEL PERÍODO</div><strong id="periodTotal">Gs. 0</strong></div>
+ <div class="stats"><div class="stat"><span>Instalaciones nuevas</span><b id="pNew">0</b></div><div class="stat"><span>Reinstalaciones</span><b id="pRe">0</b></div><div class="stat"><span>Servicios técnicos</span><b id="pService">0</b></div><div class="stat"><span>Total de trabajos</span><b id="pJobs">0</b></div></div>
+</section>
+<section id="movesPage" class="panel hidden"><div class="sectionhead"><h2>Historial de equipos</h2><button class="btn secondary small" data-home>Volver</button></div><div id="moveList"></div></section>
+<section id="settingsPage" class="panel hidden"><div class="sectionhead"><h2>Configuración y respaldo</h2><button class="btn secondary small" data-home>Volver</button></div>
+ <div class="field"><label for="technician">Nombre del técnico</label><input id="technician" placeholder="Tu nombre"></div><button class="btn" id="saveSettings" type="button">Guardar configuración</button>
+ <div class="actions"><button class="btn secondary" id="exportCsv" type="button">Exportar trabajos CSV</button><button class="btn secondary" id="backup" type="button">Copia de seguridad</button></div>
+ <div class="field"><label for="restore">Restaurar copia JSON</label><input id="restore" type="file" accept="application/json"></div>
+ <p class="muted">Los registros se guardan en este dispositivo. Hacé copias de seguridad periódicas para conservarlos.</p>
+</section>
+<div class="foot">Viko-técnico · Soporte Técnico DTH · Tus datos se guardan en este dispositivo</div>
+</main>
+<script>
+const PRICES={instalacion:133000,reinstalacion:133000,servicio:56000};
+const JOBKEY='viko-tecnico-jobs-v2', MOVEKEY='viko-tecnico-movements-v1', SETKEY='viko-tecnico-settings-v1';
+// Importa automáticamente los trabajos de la versión anterior (v1) si existen.
+let oldJobs=JSON.parse(localStorage.getItem('viko-tecnico-jobs-v1')||'[]');
+let jobs=JSON.parse(localStorage.getItem(JOBKEY)||'null');
+if(!jobs){jobs=oldJobs.map(j=>({...j,type:j.type==='servicio'?'servicio':'instalacion'}));localStorage.setItem(JOBKEY,JSON.stringify(jobs));}
+let moves=JSON.parse(localStorage.getItem(MOVEKEY)||'[]'), settings=JSON.parse(localStorage.getItem(SETKEY)||'{}');
+let currentType='instalacion', currentMove='entrega';
+const $=id=>document.getElementById(id), money=n=>'Gs. '+Number(n||0).toLocaleString('es-PY');
+const today=()=>{let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const labels={instalacion:'Instalación nueva',reinstalacion:'Reinstalación',servicio:'Servicio técnico'};
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function persist(){localStorage.setItem(JOBKEY,JSON.stringify(jobs));localStorage.setItem(MOVEKEY,JSON.stringify(moves));render();}
+function show(page){$('home').classList.toggle('hidden',page!=='home');['job','equipment','history','summary','moves','settings'].forEach(p=>$(p+'Page').classList.toggle('hidden',p!==page));if(page==='history')renderJobs();if(page==='summary')renderSummary();if(page==='moves')renderMoves();}
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));
+document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>show('home'));
+document.querySelectorAll('[data-type]').forEach(b=>b.onclick=()=>{currentType=b.dataset.type;document.querySelectorAll('[data-type]').forEach(x=>x.classList.toggle('selected',x===b));$('amount').textContent=money(PRICES[currentType]);});
+$('date').value=today();$('mDate').value=today();$('technician').value=settings.technician||'';
+$('jobForm').onsubmit=e=>{e.preventDefault();let id=$('editId').value;let item={id:id?Number(id):Date.now(),date:$('date').value,account:$('account').value.trim(),order:$('order').value.trim(),type:currentType,installed:$('installed').value.trim(),removed:$('removed').value.trim(),notes:$('notes').value.trim(),amount:PRICES[currentType],technician:settings.technician||''};if(id)jobs=jobs.map(j=>j.id===Number(id)?item:j);else jobs.push(item);$('jobForm').reset();$('editId').value='';$('date').value=today();currentType='instalacion';document.querySelectorAll('[data-type]').forEach(x=>x.classList.toggle('selected',x.dataset.type==='instalacion'));$('amount').textContent=money(PRICES.instalacion);$('jobTitle').textContent='Registrar trabajo';persist();show('home');alert('Trabajo guardado correctamente.');};
+window.editJob=id=>{let j=jobs.find(x=>x.id===id);if(!j)return;show('job');$('jobTitle').textContent='Editar trabajo';$('editId').value=j.id;$('date').value=j.date;$('account').value=j.account;$('order').value=j.order;$('installed').value=j.installed;$('removed').value=j.removed;$('notes').value=j.notes;currentType=j.type;document.querySelectorAll('[data-type]').forEach(x=>x.classList.toggle('selected',x.dataset.type===currentType));$('amount').textContent=money(PRICES[currentType]);};
+window.deleteJob=id=>{if(confirm('¿Eliminar este trabajo?')){jobs=jobs.filter(j=>j.id!==id);persist();}};
+function renderJobs(){let q=$('search').value.toLowerCase(),list=jobs.filter(j=>[j.account,j.order,j.date].some(v=>String(v).toLowerCase().includes(q))).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('jobList').innerHTML=list.length?list.map(j=>`<div class="job"><div class="jobtop"><div><b>${esc(labels[j.type]||j.type)}</b><small>Fecha: ${esc(j.date)}<br>Cuenta: ${esc(j.account)} · Orden: ${esc(j.order)}<br>Instalado: ${esc(j.installed||'—')}<br>Retirado: ${esc(j.removed||'—')}<br>Técnico: ${esc(j.technician||'—')}${j.notes?'<br>Obs.: '+esc(j.notes):''}</small></div><span class="pill">${esc(labels[j.type]||j.type)}</span></div><div class="jobtop"><span class="money">${money(j.amount)}</span><div class="row"><button class="btn secondary small" onclick="editJob(${j.id})">Editar</button><button class="btn danger small" onclick="deleteJob(${j.id})">Eliminar</button></div></div></div>`).join(''):'<div class="empty">Todavía no hay trabajos registrados.</div>';}
+$('search').oninput=renderJobs;
+function renderSummary(){let now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate()),p=$('period').value;if(p==='week'){start.setDate(start.getDate()-(start.getDay()+6)%7)}if(p==='month')start=new Date(now.getFullYear(),now.getMonth(),1);let a=jobs.filter(j=>p==='all'||new Date(j.date+'T00:00:00')>=start),sum=t=>a.filter(j=>j.type===t);$('periodTotal').textContent=money(a.reduce((s,j)=>s+j.amount,0));$('pNew').textContent=sum('instalacion').length;$('pRe').textContent=sum('reinstalacion').length;$('pService').textContent=sum('servicio').length;$('pJobs').textContent=a.length;}
+$('period').onchange=renderSummary;
+document.querySelectorAll('[data-move]').forEach(b=>b.onclick=()=>{currentMove=b.dataset.move;document.querySelectorAll('[data-move]').forEach(x=>x.classList.toggle('active',x===b));$('moveSave').textContent=currentMove==='entrega'?'Registrar entrega en base':'Registrar devolución';});
+$('moveForm').onsubmit=e=>{e.preventDefault();moves.push({id:Date.now(),date:$('mDate').value,account:$('mAccount').value.trim(),order:$('mOrder').value.trim(),kind:currentMove,equipment:$('equipmentType').value,quantity:Number($('quantity').value),condition:$('condition').value,notes:$('mNotes').value.trim()});e.target.reset();$('mDate').value=today();$('quantity').value=1;persist();alert('Movimiento de equipo guardado.');};
+function renderMoves(){let net=0;moves.forEach(m=>net+=(m.kind==='devolucion'?m.quantity:-m.quantity));$('netMoves').textContent=net+' equipos (saldo neto de movimientos)';let list=[...moves].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);$('moveList').innerHTML=list.length?list.map(m=>`<div class="movement"><b>${m.kind==='entrega'?'📦 Entrega en base':'↩ Devolución'} · ${esc(m.equipment)} × ${m.quantity}</b><small>Fecha: ${esc(m.date)} · Cuenta: ${esc(m.account||'—')} · Orden: ${esc(m.order||'—')}<br>Estado: ${esc(m.condition)}${m.notes?'<br>Obs.: '+esc(m.notes):''}</small></div>`).join(''):'<div class="empty">Todavía no hay movimientos de equipos.</div>';}
+$('saveSettings').onclick=()=>{settings.technician=$('technician').value.trim();localStorage.setItem(SETKEY,JSON.stringify(settings));alert('Configuración guardada.');};
+function download(name,data,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([data],{type}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+$('exportCsv').onclick=()=>{let rows=[['Fecha','Cuenta','Orden','Tipo','Equipo instalado','Equipo retirado','Monto','Técnico','Observaciones'],...jobs.map(j=>[j.date,j.account,j.order,labels[j.type],j.installed,j.removed,j.amount,j.technician,j.notes])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n');download('viko-tecnico-trabajos.csv',csv,'text/csv;charset=utf-8;');};
+$('backup').onclick=()=>download('respaldo-viko-tecnico.json',JSON.stringify({jobs,moves,settings},null,2),'application/json');
+$('restore').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(!Array.isArray(data.jobs)||!Array.isArray(data.moves))throw Error();if(confirm('La restauración reemplazará los datos actuales. ¿Continuar?')){jobs=data.jobs;moves=data.moves;settings=data.settings||{};localStorage.setItem(SETKEY,JSON.stringify(settings));$('technician').value=settings.technician||'';persist();alert('Copia restaurada.');}}catch(err){alert('El archivo no parece ser una copia válida de Viko-técnico.');}e.target.value='';};
+function render(){let total=jobs.reduce((s,j)=>s+j.amount,0);$('grandTotal').textContent=money(total);$('newCount').textContent=jobs.filter(j=>j.type==='instalacion').length;$('reCount').textContent=jobs.filter(j=>j.type==='reinstalacion').length;$('serviceCount').textContent=jobs.filter(j=>j.type==='servicio').length;$('todayTotal').textContent=money(jobs.filter(j=>j.date===today()).reduce((s,j)=>s+j.amount,0));renderJobs();renderSummary();renderMoves();}
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script></main></body></html>
